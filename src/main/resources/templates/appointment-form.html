@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Novo Agendamento - SorrisoEmJogo</title>
+</head>
+<body>
+<h1>Novo Agendamento</h1>
+<form th:action="@{/appointments/new}" th:object="${appointment}" method="post">
+    <label>Selecione o Cliente:</label>
+    <select th:field="*{client.id}" required>
+        <option th:each="client : ${clients}"
+                th:value="${client.id}"
+                th:text="${client.name}">Cliente</option>
+    </select>
+    <label>Data e Hora:</label>
+    <input type="datetime-local" th:field="*{appointmentDateTime}" required/>
+    <button type="submit">Agendar Consulta</button>
+</form>
+</body>
+</html>

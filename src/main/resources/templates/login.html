@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login - SorrisoEmJogo</title>
+</head>
+<body>
+<h1>Login</h1>
+<form th:action="@{/login}" method="post">
+    <input type="email" name="email" placeholder="Email" required/>
+    <input type="password" name="password" placeholder="Senha" required/>
+    <button type="submit">Entrar</button>
+</form>
+<p th:if="${error}" th:text="${error}"></p>
+<p>Não possui conta? <a th:href="@{/clinics/register}">Cadastre sua clínica</a></p>
+</body>
+</html>

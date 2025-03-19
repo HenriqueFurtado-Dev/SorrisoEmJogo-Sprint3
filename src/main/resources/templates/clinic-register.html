@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cadastro de Clínica - SorrisoEmJogo</title>
+</head>
+<body>
+<h1>Cadastro de Clínica</h1>
+<form th:action="@{/clinics/register}" th:object="${clinic}" method="post">
+    <input type="text" th:field="*{name}" placeholder="Nome da Clínica" required/>
+    <input type="email" th:field="*{email}" placeholder="Email" required/>
+    <input type="password" th:field="*{password}" placeholder="Senha" required/>
+    <button type="submit">Cadastrar</button>
+</form>
+</body>
+</html>

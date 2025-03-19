@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Novo Cliente - SorrisoEmJogo</title>
+</head>
+<body>
+<h1>Novo Cliente</h1>
+<form th:action="@{/clients/new}" th:object="${client}" method="post">
+    <input type="text" th:field="*{name}" placeholder="Nome do Cliente" required/>
+    <button type="submit">Cadastrar Cliente</button>
+</form>
+</body>
+</html>

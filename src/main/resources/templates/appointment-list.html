@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Agendamentos</title>
+</head>
+<body>
+<h1>Lista de Agendamentos</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Data/Hora</th>
+        <th>Cliente</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="appointment : ${appointments}">
+        <td th:text="${appointment.id}"></td>
+        <td th:text="${appointment.appointmentDateTime}"></td>
+        <td th:text="${appointment.client.name}"></td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/dashboard}">Voltar ao Dashboard</a>
+</body>
+</html>

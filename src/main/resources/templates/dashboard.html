@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+<h1>Bem-vindo(a) ao SorrisoEmJogo!</h1>
+
+<p>Olá, <span th:text="${clinic.name}">Nome da Clínica</span>!</p>
+<p>Sua pontuação atual é: <span th:text="${clinic.score}">0</span></p>
+
+<hr>
+
+<a th:href="@{/clients/new}">Cadastrar Novo Cliente</a>
+<br>
+<a th:href="@{/clients/list}">Listar Clientes</a>
+<br>
+<a th:href="@{/appointments/new}">Novo Agendamento</a>
+<br>
+<a th:href="@{/appointments/list}">Listar Agendamentos</a>
+
+</body>
+</html>
