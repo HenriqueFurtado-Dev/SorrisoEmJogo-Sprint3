@@ -1,23 +1,67 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Dashboard</title>
+    <title>Dashboard - SorrisoEmJogo</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <style>
+        /* Estilos específicos para o dashboard */
+        body {
+            padding: 2rem; /* Espaçamento interno no body */
+            background-color: #f0f8ff; /* Fundo claro (AliceBlue) */
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+        /* Destaque para a saudação */
+        .greeting {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #007BFF;
+            margin-bottom: 1rem;
+        }
+        /* Estilo das caixas de dicas */
+        .tip-box {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .tip-box h3 {
+            margin-top: 0;
+            color: #007BFF;
+        }
+    </style>
 </head>
 <body>
-<h1>Bem-vindo(a) ao SorrisoEmJogo!</h1>
+<!-- Inclusão do header -->
+<div th:insert="fragments/header :: headerFragment"></div>
 
-<p>Olá, <span th:text="${clinic.name}">Nome da Clínica</span>!</p>
-<p>Sua pontuação atual é: <span th:text="${clinic.score}">0</span></p>
+<div class="container">
+    <div class="greeting">
+        Olá, <span th:text="${clinic.name}">Nome da Clínica</span>!
+    </div>
 
-<hr>
+    <p>Sua pontuação atual é: <span th:text="${clinic.score}">0</span></p>
+    <hr>
 
-<a th:href="@{/clients/new}">Cadastrar Novo Cliente</a>
-<br>
-<a th:href="@{/clients/list}">Listar Clientes</a>
-<br>
-<a th:href="@{/appointments/new}">Novo Agendamento</a>
-<br>
-<a th:href="@{/appointments/list}">Listar Agendamentos</a>
+    <!-- Caixas de dicas para dentistas -->
+    <div class="tip-box">
+        <h3>Dica 1: Atualize seu conhecimento</h3>
+        <p>Mantenha-se atualizado com as últimas técnicas e materiais odontológicos para oferecer o melhor atendimento.</p>
+    </div>
 
+    <div class="tip-box">
+        <h3>Dica 2: Invista na experiência do paciente</h3>
+        <p>Um ambiente acolhedor e moderno pode transformar a experiência do paciente e fidelizá-lo.</p>
+    </div>
+
+    <div class="tip-box">
+        <h3>Dica 3: Gestão e organização</h3>
+        <p>Utilize ferramentas de gestão para otimizar a agenda, melhorar o atendimento e aumentar a eficiência.</p>
+    </div>
+</div>
 </body>
 </html>
