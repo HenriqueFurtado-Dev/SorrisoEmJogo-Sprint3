@@ -53,4 +53,59 @@ public class ClientController {
         return "client-list"; // Deve corresponder a client-list.html
     }
 
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable("id") Long id, Model model, HttpSession session) {
+        Clinic loggedClinic = (Clinic) session.getAttribute("loggedClinic");
+        if (loggedClinic == null) {
+            return "redirect:/login";
+        }
+        Client client = clientRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado: " + id));
+        // Verifica se o cliente pertence à clínica logada
+        if (!client.getClinic().getId().equals(loggedClinic.getId())) {
+            return "redirect:/clients/list";
+        }
+        model.addAttribute("client", client);
+        return "client-edit"; // Criar este template
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateClient(@PathVariable("id") Long id, @ModelAttribute Client client, HttpSession session) {
+        Clinic loggedClinic = (Clinic) session.getAttribute("loggedClinic");
+        if (loggedClinic == null) {
+            return "redirect:/login";
+        }
+        Client existingClient = clientRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado: " + id));
+
+        // Atualiza todos os campos
+        existingClient.setName(client.getName());
+        existingClient.setCpf(client.getCpf());
+        existingClient.setIdade(client.getIdade());
+        existingClient.setEmail(client.getEmail());
+        existingClient.setProblemasOdontologicos(client.getProblemasOdontologicos());
+        existingClient.setPlanoOdontologico(client.getPlanoOdontologico());
+
+        clientRepository.save(existingClient);
+        return "redirect:/clients/list";
+    }
+
+
+    @GetMapping("/delete/{id}")
+    public String deleteClient(@PathVariable("id") Long id, HttpSession session) {
+        Clinic loggedClinic = (Clinic) session.getAttribute("loggedClinic");
+        if (loggedClinic == null) {
+            return "redirect:/login";
+        }
+        Client client = clientRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado: " + id));
+        // Verifica se o cliente pertence à clínica logada
+        if (!client.getClinic().getId().equals(loggedClinic.getId())) {
+            return "redirect:/clients/list";
+        }
+        clientRepository.delete(client);
+        return "redirect:/clients/list";
+    }
+
+
 }

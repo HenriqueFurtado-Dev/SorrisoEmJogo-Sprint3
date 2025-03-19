@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Novo Cliente - SorrisoEmJogo</title>
+    <title>Editar Cliente - SorrisoEmJogo</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <style>
         .form-container {
@@ -45,9 +45,10 @@
 </head>
 <body>
 <div th:insert="~{fragments/header :: headerFragment}"></div>
+
 <div class="form-container">
-    <h1>Novo Cliente</h1>
-    <form th:action="@{/clients/new}" th:object="${client}" method="post">
+    <h1>Editar Cliente</h1>
+    <form th:action="@{'/clients/update/' + ${client.id}}" th:object="${client}" method="post">
         <input type="text" th:field="*{name}" placeholder="Nome do Cliente" required />
         <input type="text" th:field="*{cpf}" placeholder="CPF" required />
         <input type="number" th:field="*{idade}" placeholder="Idade" required />
@@ -58,7 +59,7 @@
             <option value="Bradesco">Bradesco</option>
             <option value="Porto seguro">Porto seguro</option>
         </select>
-        <button type="submit">Cadastrar Cliente</button>
+        <button type="submit">Atualizar Cliente</button>
     </form>
 </div>
 </body>
