@@ -4,23 +4,19 @@
     <title>Dashboard - SorrisoEmJogo</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <style>
-        /* Estilos específicos para o dashboard */
         body {
-            padding: 2rem; /* Espaçamento interno no body */
-            background-color: #f0f8ff; /* Fundo claro (AliceBlue) */
+            background-color: #f0f8ff;
         }
         .container {
             max-width: 960px;
             margin: 0 auto;
         }
-        /* Destaque para a saudação */
         .greeting {
             font-size: 1.5rem;
             font-weight: bold;
             color: #007BFF;
             margin-bottom: 1rem;
         }
-        /* Estilo das caixas de dicas */
         .tip-box {
             background-color: #ffffff;
             border: 1px solid #ddd;
@@ -43,8 +39,10 @@
     <div class="greeting">
         Olá, <span th:text="${clinic.name}">Nome da Clínica</span>!
     </div>
-
-    <p>Sua pontuação atual é: <span th:text="${clinic.score}">0</span></p>
+    <p>Ganhe pontos ao cadastrar novos clientes e realizar novos agendamentos!</p>
+    <span class="score-text" th:text="'Score: ' + ${clinic.score}">Score: 0</span>
+    <img th:src="@{/images/throphy.png}" alt="Trophy" class="score-icon"/>
+    </span>
     <hr>
 
     <!-- Caixas de dicas para dentistas -->

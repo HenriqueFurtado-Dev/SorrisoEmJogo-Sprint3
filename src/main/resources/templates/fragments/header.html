@@ -2,17 +2,17 @@
 <div th:fragment="headerFragment">
     <header>
         <div class="header-container">
-            <!-- Logo à esquerda -->
             <div class="logo">
                 <img th:src="@{/images/Sorriso.png}" alt="SorrisoEmJogo Logo" />
             </div>
-            <!-- Menu à direita -->
             <nav class="menu">
                 <a th:href="@{/dashboard}" class="menu-item">Início</a>
                 <a th:href="@{/clients/new}" class="menu-item">Cadastrar Novo Cliente</a>
                 <a th:href="@{/clients/list}" class="menu-item">Listar Clientes</a>
                 <a th:href="@{/appointments/new}" class="menu-item">Novo Agendamento</a>
                 <a th:href="@{/appointments/list}" class="menu-item">Listar Agendamentos</a>
+                <span th:if="${clinic != null}" class="score-container">
+
             </nav>
         </div>
     </header>

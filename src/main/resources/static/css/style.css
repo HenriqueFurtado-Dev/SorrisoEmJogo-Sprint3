@@ -86,3 +86,21 @@ table th {
 .menu a.menu-item:hover {
     text-decoration: underline;
 }
+
+/* Estilização para o score */
+.score-container {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 1rem;
+}
+
+.score-text {
+    font-weight: bold;
+    color: #007BFF;
+    margin-right: 0.3rem;
+}
+
+.score-icon {
+    height: 20px; /* Ajuste o tamanho conforme necessário */
+    width: auto;
+}
