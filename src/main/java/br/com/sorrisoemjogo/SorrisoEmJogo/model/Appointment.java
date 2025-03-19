@@ -1,15 +1,14 @@
 package br.com.sorrisoemjogo.SorrisoEmJogo.model;
 
-
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDateTime;
-
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Appointment {
 
     @Id
@@ -18,9 +17,10 @@ public class Appointment {
 
     private LocalDateTime appointmentDateTime;
 
-    // Relacionamento muitos para um com Client
+    // Novo campo para armazenar o problema do paciente
+    private String problemaPaciente;
+
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
-
 }

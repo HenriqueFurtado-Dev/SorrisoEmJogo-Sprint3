@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Novo Agendamento - SorrisoEmJogo</title>
+    <title>Editar Agendamento - SorrisoEmJogo</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <style>
         .form-container {
@@ -49,8 +49,8 @@
 <body>
 <div th:insert="~{fragments/header :: headerFragment}"></div>
 <div class="form-container">
-    <h1>Novo Agendamento</h1>
-    <form th:action="@{/appointments/new}" th:object="${appointment}" method="post">
+    <h1>Editar Agendamento</h1>
+    <form th:action="@{'/appointments/update/' + ${appointment.id}}" th:object="${appointment}" method="post">
         <label>Selecione o Cliente:</label>
         <select th:field="*{client.id}" required>
             <option th:each="client : ${clients}"
@@ -62,12 +62,12 @@
         <label>Problema do Paciente:</label>
         <select th:field="*{problemaPaciente}" required>
             <option value="">Selecione o problema</option>
-            <option value="Dor de dente">Dor de dente</option>
-            <option value="Limpeza">Limpeza</option>
-            <option value="Canal">Canal</option>
-            <option value="Manutenção Aparelho">Manutenção Aparelho</option>
+            <option value="Dor de dente" th:selected="${appointment.problemaPaciente=='Dor de dente'}">Dor de dente</option>
+            <option value="Limpeza" th:selected="${appointment.problemaPaciente=='Limpeza'}">Limpeza</option>
+            <option value="Canal" th:selected="${appointment.problemaPaciente=='Canal'}">Canal</option>
+            <option value="Manutenção Aparelho" th:selected="${appointment.problemaPaciente=='Manutenção Aparelho'}">Manutenção Aparelho</option>
         </select>
-        <button type="submit">Agendar Consulta</button>
+        <button type="submit">Atualizar Agendamento</button>
     </form>
 </div>
 </body>
