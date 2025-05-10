@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciar Roles</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <style>
+        table { width:100%; border-collapse:collapse; }
+        th,td { padding:.5rem; border:1px solid #ddd; }
+        .badge { background:#007BFF; color:#fff; padding:.2rem .5rem; border-radius:4px; margin-right:.25rem; }
+        form { display:inline; }
+        button { border:none; background:none; color:#007BFF; cursor:pointer; }
+    </style>
+</head>
+<body>
+<div th:insert="~{fragments/header :: headerFragment}"></div>
+
+<h1 style="text-align:center">Gerenciamento de Roles</h1>
+
+<table>
+    <thead>
+    <tr><th>Clínica</th><th>Roles atuais</th><th>Atribuir / Remover</th></tr>
+    </thead>
+    <tbody>
+    <tr th:each="clinic : ${clinics}">
+        <td th:text="${clinic.name}"></td>
+
+        <td>
+        <span th:each="r : ${clinic.roles}"
+              th:text="${r.name}"
+              class="badge"></span>
+        </td>
+
+        <td>
+            <form th:each="role : ${allRoles}"
+                  th:action="@{/admin/roles/toggle}"
+                  method="post" style="display:inline-block;margin-right:.5rem;">
+                <input type="hidden" name="clinicId" th:value="${clinic.id}" />
+                <input type="hidden" name="roleId"   th:value="${role.id}" />
+                <button th:text="${clinic.roles.contains(role) ? 'Remover ' + role.name : 'Adicionar ' + role.name}"></button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

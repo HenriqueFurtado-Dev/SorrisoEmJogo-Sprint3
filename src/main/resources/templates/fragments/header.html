@@ -2,18 +2,27 @@
 <div th:fragment="headerFragment">
     <header>
         <div class="header-container">
+            <!-- Logo / link para home -->
             <div class="logo">
-                <img th:src="@{/images/Sorriso.png}" alt="SorrisoEmJogo Logo" />
+                <a th:href="@{/dashboard}">
+                    <img th:src="@{/images/Sorriso.png}" alt="SorrisoEmJogo Logo"/>
+                </a>
             </div>
-            <nav class="menu">
-                <a th:href="@{/dashboard}" class="menu-item">Início</a>
-                <a th:href="@{/clients/new}" class="menu-item">Cadastrar Novo Cliente</a>
-                <a th:href="@{/clients/list}" class="menu-item">Listar Clientes</a>
-                <a th:href="@{/appointments/new}" class="menu-item">Novo Agendamento</a>
-                <a th:href="@{/appointments/list}" class="menu-item">Listar Agendamentos</a>
-                <span th:if="${clinic != null}" class="score-container">
 
+            <!-- Navegação principal -->
+            <nav class="menu">
+                <a th:href="@{/dashboard}"           class="menu-item">Início</a>
+                <a th:href="@{/clients/new}"        class="menu-item">Cadastrar Cliente</a>
+                <a th:href="@{/clients/list}"       class="menu-item">Listar Clientes</a>
+                <a th:href="@{/appointments/new}"   class="menu-item">Novo Agendamento</a>
+                <a th:href="@{/appointments/list}"  class="menu-item">Listar Agendamentos</a>
             </nav>
+
+            <!-- Score e logout – visível somente se houver clínica logada -->
+            <div th:if="${clinic != null}" class="score-container">
+                <span class="score-text">Score:&nbsp;<strong th:text="${clinic.score}">0</strong></span>
+                <a th:href="@{/logout}" class="logout-button">Sair</a>
+            </div>
         </div>
     </header>
 </div>

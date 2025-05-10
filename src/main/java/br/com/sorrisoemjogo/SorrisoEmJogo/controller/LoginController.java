@@ -1,53 +1,30 @@
 package br.com.sorrisoemjogo.SorrisoEmJogo.controller;
 
-
 import br.com.sorrisoemjogo.SorrisoEmJogo.model.Clinic;
-import br.com.sorrisoemjogo.SorrisoEmJogo.repository.ClinicRepository;
-import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.sorrisoemjogo.SorrisoEmJogo.security.ClinicUserDetails;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class LoginController {
 
-    @Autowired
-    private ClinicRepository clinicRepository;
-
+    // GET /login – só exibe a página
     @GetMapping("/login")
-    public String showLoginForm() {
-        return "login"; // Template Thymeleaf: login.html
+    public String loginPage() {
+        return "login";
     }
 
-    @PostMapping("/login")
-    public String login(@RequestParam String email,
-                        @RequestParam String password,
-                        HttpSession session,
-                        Model model) {
-        Clinic clinic = clinicRepository.findByEmail(email);
-        if (clinic != null && clinic.getPassword().equals(password)) {
-            // Salva a clínica na sessão
-            session.setAttribute("loggedClinic", clinic);
-            return "redirect:/dashboard"; // redireciona para o GET /dashboard
-        } else {
-            model.addAttribute("error", "Credenciais inválidas");
-            return "login";
-        }
-    }
-
+    // GET /dashboard
     @GetMapping("/dashboard")
-    public String dashboard(HttpSession session, Model model) {
-        // Verifica se a clínica está logada
-        Clinic clinic = (Clinic) session.getAttribute("loggedClinic");
-        if (clinic == null) {
-            return "redirect:/login";
-        }
-        // Envia informações da clínica para o template
+    public String dashboard(Model model) {
+        // pega o usuário logado do SecurityContext
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Clinic clinic = ((ClinicUserDetails) auth.getPrincipal()).getClinic();
+
         model.addAttribute("clinic", clinic);
-        return "dashboard"; // nome do arquivo Thymeleaf (dashboard.html)
+        return "dashboard";
     }
-
-
-
 }
