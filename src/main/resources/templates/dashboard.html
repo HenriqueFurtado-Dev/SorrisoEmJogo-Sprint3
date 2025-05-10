@@ -1,64 +1,56 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Dashboard - SorrisoEmJogo</title>
+    <title th:text="#{dashboard.title}">Dashboard</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <style>
-        body {
-            background-color: #f0f8ff;
-        }
-        .container {
-            max-width: 960px;
-            margin: 0 auto;
-        }
-        .greeting {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #007BFF;
-            margin-bottom: 1rem;
-        }
-        .tip-box {
-            background-color: #ffffff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            padding: 1rem;
-            margin-bottom: 1rem;
-        }
-        .tip-box h3 {
-            margin-top: 0;
-            color: #007BFF;
-        }
+        /* ... seu CSS ... */
     </style>
 </head>
 <body>
-<!-- Inclusão do header -->
+<!-- header via fragment -->
 <div th:insert="fragments/header :: headerFragment"></div>
 
 <div class="container">
-    <div class="greeting">
-        Olá, <span th:text="${clinic.name}">Nome da Clínica</span>!
-    </div>
-    <p>Ganhe pontos ao cadastrar novos clientes e realizar novos agendamentos!</p>
-    <span class="score-text" th:text="'Score: ' + ${clinic.score}">Score: 0</span>
-    <img th:src="@{/images/throphy.png}" alt="Trophy" class="score-icon"/>
-    </span>
-    <hr>
-
-    <!-- Caixas de dicas para dentistas -->
-    <div class="tip-box">
-        <h3>Dica 1: Atualize seu conhecimento</h3>
-        <p>Mantenha-se atualizado com as últimas técnicas e materiais odontológicos para oferecer o melhor atendimento.</p>
+    <!-- Saudação com parâmetro -->
+    <div class="greeting" th:text="#{dashboard.greeting(${clinic.name})}">
+        Olá, Clínica!
     </div>
 
+    <!-- Score com parâmetro -->
+    <div class="score-text" th:text="#{dashboard.score(${clinic.score})}">
+        Score: 0
+    </div>
+    <img th:src="@{/images/trophy.png}" alt="Trophy" class="score-icon"/>
+
+    <hr/>
+
+    <!-- Dicas -->
     <div class="tip-box">
-        <h3>Dica 2: Invista na experiência do paciente</h3>
-        <p>Um ambiente acolhedor e moderno pode transformar a experiência do paciente e fidelizá-lo.</p>
+        <h3 th:text="#{dashboard.tip1.title}">
+            Dica 1: Atualize seu conhecimento
+        </h3>
+        <p th:text="#{dashboard.tip1.text}">
+            Mantenha-se atualizado…
+        </p>
     </div>
 
     <div class="tip-box">
-        <h3>Dica 3: Gestão e organização</h3>
-        <p>Utilize ferramentas de gestão para otimizar a agenda, melhorar o atendimento e aumentar a eficiência.</p>
+        <h3 th:text="#{dashboard.tip2.title}">
+            Dica 2: Invista na experiência do paciente
+        </h3>
+        <p th:text="#{dashboard.tip2.text}">
+            Um ambiente acolhedor…
+        </p>
+    </div>
+
+    <div class="tip-box">
+        <h3 th:text="#{dashboard.tip3.title}">
+            Dica 3: Gestão e organização
+        </h3>
+        <p th:text="#{dashboard.tip3.text}">
+            Utilize ferramentas…
+        </p>
     </div>
 </div>
 </body>

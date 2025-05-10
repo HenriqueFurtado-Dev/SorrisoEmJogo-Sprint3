@@ -1,28 +1,38 @@
-<!-- fragments/header.html -->
-<div th:fragment="headerFragment">
+<!-- src/main/resources/templates/fragments/header.html -->
+<div th:fragment="headerFragment"
+     xmlns:th="http://www.thymeleaf.org">
     <header>
         <div class="header-container">
-            <!-- Logo / link para home -->
+
+            <!-- Logo -->
             <div class="logo">
                 <a th:href="@{/dashboard}">
                     <img th:src="@{/images/Sorriso.png}" alt="SorrisoEmJogo Logo"/>
                 </a>
             </div>
 
-            <!-- Navegação principal -->
+            <!-- Menu -->
             <nav class="menu">
-                <a th:href="@{/dashboard}"           class="menu-item">Início</a>
-                <a th:href="@{/clients/new}"        class="menu-item">Cadastrar Cliente</a>
-                <a th:href="@{/clients/list}"       class="menu-item">Listar Clientes</a>
-                <a th:href="@{/appointments/new}"   class="menu-item">Novo Agendamento</a>
-                <a th:href="@{/appointments/list}"  class="menu-item">Listar Agendamentos</a>
+                <a th:href="@{/dashboard}"          class="menu-item" th:text="#{menu.inicio}">Início</a>
+                <a th:href="@{/clients/new}"        class="menu-item" th:text="#{menu.cadastrar_cliente}">Cadastrar</a>
+                <a th:href="@{/clients/list}"       class="menu-item" th:text="#{menu.listar_clientes}">Clientes</a>
+                <a th:href="@{/appointments/new}"   class="menu-item" th:text="#{menu.novo_agendamento}">Novo</a>
+                <a th:href="@{/appointments/list}"  class="menu-item" th:text="#{menu.listar_agendamentos}">Agendamentos</a>
             </nav>
 
-            <!-- Score e logout – visível somente se houver clínica logada -->
+            <!-- Troca de idioma -->
+            <span class="lang-switcher">
+                <a th:href="@{?lang=pt}" th:text="#{lang.pt}">PT</a> |
+                <a th:href="@{?lang=en}" th:text="#{lang.en}">EN</a>
+            </span>
+
+            <!-- Score + logout, visível só se clinic estiver no modelo -->
             <div th:if="${clinic != null}" class="score-container">
-                <span class="score-text">Score:&nbsp;<strong th:text="${clinic.score}">0</strong></span>
-                <a th:href="@{/logout}" class="logout-button">Sair</a>
+                <span class="score-text" th:text="#{score.text}">Score:</span>
+                <strong th:text="${clinic.score}">0</strong>
+                <a th:href="@{/logout}" class="logout-button" th:text="#{menu.logout}">Sair</a>
             </div>
+
         </div>
     </header>
 </div>

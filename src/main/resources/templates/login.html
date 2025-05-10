@@ -1,22 +1,27 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title>Login - SorrisoEmJogo</title>
+    <meta charset="UTF-8" />
+    <title th:text="#{login.title}">Login</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <link rel="stylesheet" th:href="@{/css/login.css}" />
 </head>
 <body>
 <div class="login-container">
-    <img th:src="@{/images/Sorriso.png}" alt="Logo SorrisoEmJogo" />
-    <h2>Login</h2>
+    <img th:src="@{/images/Sorriso.png}" alt="Logo" />
+    <h2 th:text="#{login.title}">Login</h2>
+
     <form th:action="@{/login}" method="post">
-        <input type="email" name="username" placeholder="Email"   required />
-        <input type="password" name="password" placeholder="Senha" required />
-        <input type="submit" value="Entrar" />
+        <input type="email"  name="username" th:placeholder="#{login.email}"     required />
+        <input type="password" name="password" th:placeholder="#{login.password}" required />
+        <input type="submit"   th:value="#{login.button}" />
     </form>
-    <p th:if="${error}" th:text="${error}"></p>
-    <p>Não possui conta? <a th:href="@{/clinics/register}">Cadastre sua clínica</a></p>
+
+    <div class="lang-switcher">
+        <a th:href="@{/login(lang='pt')}" th:text="#{lang.pt}">PT</a> |
+        <a th:href="@{/login(lang='en')}" th:text="#{lang.en}">EN</a>
+    </div>
 </div>
 </body>
 </html>
