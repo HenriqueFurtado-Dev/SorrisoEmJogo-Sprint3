@@ -1,0 +1,70 @@
+spring:
+    application:
+        name: SorrisoEmJogo
+
+    # datasource original Oracle comentado
+    # datasource:
+    #   url: jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL
+    #   username: rm553597
+    #   password:
+    #   driver-class-name: oracle.jdbc.OracleDriver
+
+    # datasource temporário H2 em memória
+    datasource:
+        url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+        driver-class-name: org.h2.Driver
+        username: sa
+        password:
+
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true
+
+    devtools:
+        restart:
+            enabled: false
+
+    messages:
+        basename: messages
+        encoding: UTF-8
+
+    rabbitmq:
+        host: localhost
+        port: 5672
+        username: guest
+        password: guest
+
+    ai:
+        openai:
+            api-key: "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"
+            base-url: https://models.inference.ai.azure.com
+
+            chat:
+                completions-path: /chat/completions
+                options:
+                    model: gpt-4o-mini
+
+            embedding:
+                embeddings-path: /embeddings
+                options:
+                    model: text-embedding-3-small
+
+    data:
+        mongodb:
+            uri: mongodb://localhost:27017/sorrisoemjogo
+    h2:
+        console:
+                    enabled: true
+                    path: /h2-console
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: health, info, metrics, prometheus
+    endpoint:
+        health:
+            show-details: always
+
+# Habilita a console web do H2 (opcional)
