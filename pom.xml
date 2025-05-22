@@ -1,38 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.4.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>br.com.sorrisoemjogo</groupId>
 	<artifactId>SorrisoEmJogo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>SorrisoEmJogo</name>
 	<description>Projeto gamificado de gestão de clientes</description>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
+
 	<properties>
 		<java.version>17</java.version>
 		<spring-ai.version>1.0.0</spring-ai.version>
+		<!-- garante que todos os recursos sejam lidos/escritos em UTF-8 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
 	<dependencyManagement>
 		<dependencies>
-			<!-- BOM garante a mesma versão para todos os módulos Spring AI -->
+			<!-- BOM para Spring AI -->
 			<dependency>
 				<groupId>org.springframework.ai</groupId>
 				<artifactId>spring-ai-bom</artifactId>
@@ -42,7 +37,9 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
 	<dependencies>
+		<!-- Spring Data JPA, Security, Thymeleaf, Web -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -59,7 +56,8 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc8 -->
+
+		<!-- Oracle JDBC (opcional) -->
 		<dependency>
 			<groupId>com.oracle.database.jdbc</groupId>
 			<artifactId>ojdbc8</artifactId>
@@ -72,56 +70,41 @@
 			<artifactId>spring-boot-starter-amqp</artifactId>
 		</dependency>
 
-
-		<!-- Actuator -->
+		<!-- Actuator + Prometheus -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-registry-prometheus</artifactId>
 		</dependency>
 
+		<!-- MongoDB -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
 
-
-
-
-		<!-- (opcional) UI web para o Actuator -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<!-- Starter principal para usar OpenAI ChatClient -->
+		<!-- Spring AI ChatClient & VectorStore -->
 		<dependency>
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-starter-model-openai</artifactId>
 		</dependency>
-
-		<!-- Core ChatClient API (se ainda necessário em versões antigas) -->
 		<dependency>
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-client-chat</artifactId>
 		</dependency>
-
-		<!-- Vetor store “em memória” (SimpleVectorStore) -->
 		<dependency>
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-vector-store</artifactId>
 		</dependency>
-
-		<!-- Advisors para usar QuestionAnswerAdvisor sobre o VectorStore -->
 		<dependency>
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-advisors-vector-store</artifactId>
 		</dependency>
 
+		<!-- Devtools, H2, Lombok, Test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -146,11 +129,34 @@
 	</dependencies>
 
 	<build>
+		<!-- recursos: filtrar somente .properties e .xml; copiar .yml/.yaml sem filtering -->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.yml</include>
+					<include>**/*.yaml</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
+
 		<plugins>
+			<!-- garante compilação com Java 17 e uso do Lombok -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 					<annotationProcessorPaths>
 						<path>
 							<groupId>org.projectlombok</groupId>
@@ -159,6 +165,17 @@
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
+
+			<!-- configurar encoding UTF-8 no plugin de recursos -->
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.3.1</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+
+			<!-- empacotamento Spring Boot -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
