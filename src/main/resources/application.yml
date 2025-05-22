@@ -3,18 +3,18 @@ spring:
         name: SorrisoEmJogo
 
     # datasource original Oracle comentado
-    # datasource:
-    #   url: jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL
-    #   username: rm553597
-    #   password:
-    #   driver-class-name: oracle.jdbc.OracleDriver
+    datasource:
+       url: jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL
+       username: rm553597
+       password: Fiap2025
+       driver-class-name: oracle.jdbc.OracleDriver
 
     # datasource temporario H2 em memoria
-    datasource:
-        url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-        driver-class-name: org.h2.Driver
-        username: sa
-        password:
+    #datasource:
+    #   url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    #   driver-class-name: org.h2.Driver
+    #  username: sa
+    #   password:
 
     jpa:
         hibernate:
