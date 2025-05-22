@@ -13,13 +13,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/clinics")
 public class ClinicController {
 
-    @Autowired
-    private ClinicRepository clinicRepository;
+    private final ClinicRepository clinicRepository;
+
+    public ClinicController(ClinicRepository clinicRepository) {
+        this.clinicRepository = clinicRepository;
+    }
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("clinic", new Clinic());
-        return "clinic-register"; // Template: clinic-register.html
+        return "clinic-register";
     }
 
     @PostMapping("/register")
