@@ -67,4 +67,3 @@ management:
         health:
             show-details: always
 
-# Habilita a console web do H2 (opcional)
