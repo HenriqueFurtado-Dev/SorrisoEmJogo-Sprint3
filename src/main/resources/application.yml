@@ -6,14 +6,14 @@ spring:
     datasource:
        url: jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL
        username: rm553597
-       password: Fiap2025
+       password:
        driver-class-name: oracle.jdbc.OracleDriver
 
     # datasource temporario H2 em memoria
-    #datasource:
+    # datasource:
     #   url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     #   driver-class-name: org.h2.Driver
-    #  username: sa
+    #   username: sa
     #   password:
 
     jpa:
@@ -37,7 +37,7 @@ spring:
 
     ai:
         openai:
-            api-key: "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"
+            api-key: ""
             base-url: https://models.inference.ai.azure.com
 
             chat:

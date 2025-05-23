@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mensageria</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <style>
+        .container{max-width:720px;margin:2rem auto;padding:1rem;border:1px solid #ccc;border-radius:8px}
+        textarea{width:100%;padding:.5rem;resize:vertical}
+        button{margin-top:.5rem;padding:.5rem 1rem;background:#007BFF;color:#fff;border:none;border-radius:4px}
+        table{width:100%;margin-top:1rem;border-collapse:collapse}
+        th,td{border:1px solid #ddd;padding:.5rem}
+    </style>
+</head>
+<body>
+<div th:insert="~{fragments/header :: headerFragment}"></div>
+
+<div class="container">
+    <h2>Enviar mensagem à fila</h2>
+
+    <textarea id="msgText" rows="3" placeholder="Digite..."></textarea>
+    <button onclick="send()">Enviar</button>
+
+    <h3>Histórico</h3>
+    <table>
+        <thead><tr><th>Data/Hora</th><th>Conteúdo</th></tr></thead>
+        <tbody id="histBody">
+        <tr th:each="m : ${messages}">
+            <td th:text="${#temporals.format(m.createdAt,'dd/MM/yyyy HH:mm')}"></td>
+            <td th:text="${m.content}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function send() {
+        const txt = document.getElementById('msgText').value.trim();
+        if (!txt) return;
+        fetch('/api/mq/send', {
+            method:'POST',
+            headers:{'Content-Type':'text/plain'},
+            body:txt
+        }).then(()=>{
+            document.getElementById('msgText').value='';
+            loadHistory();
+        });
+    }
+    function loadHistory(){
+        fetch('/api/mq/history')
+            .then(r=>r.json())
+            .then(arr=>{
+                const body=document.getElementById('histBody');
+                body.innerHTML='';
+                arr.forEach(m=>{
+                    const tr=document.createElement('tr');
+                    tr.innerHTML=`<td>${new Date(m.createdAt).toLocaleString()}</td><td>${m.content}</td>`;
+                    body.appendChild(tr);
+                });
+            });
+    }
+</script>
+</body>
+</html>
