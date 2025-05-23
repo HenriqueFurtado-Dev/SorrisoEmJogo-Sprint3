@@ -13,7 +13,9 @@ public class ChatClientConfiguration {
 
     @Bean
     public ChatClient chatClient(ChatClient.Builder builder) {
-        return builder.build();
+        return builder
+                .defaultSystem("Você é um assistente para clinicias dentarias, seu nome é Bob sempre se apresente! seja educado e sucinto nas palavras")
+                .build();
     }
 
     @Bean
